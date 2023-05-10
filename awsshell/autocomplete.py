@@ -115,11 +115,11 @@ class AWSCLIModelCompleter(object):
             return substring_search(last_word, self._current['commands'])
 
     def _get_all_args(self):
-        if self._current['arguments'] != self._global_options:
-            all_args = self._current['arguments'] + self._global_options
-        else:
-            all_args = self._current['arguments']
-        return all_args
+        return (
+            self._current['arguments'] + self._global_options
+            if self._current['arguments'] != self._global_options
+            else self._current['arguments']
+        )
 
     def _handle_backspace(self):
         return self._complete_from_full_parse()
